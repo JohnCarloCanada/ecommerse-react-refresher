@@ -1,5 +1,5 @@
 import Home from "./Home";
 import Auth from "./Auth";
-import Checkout from "./Home";
+import Checkout from "./Checkout";
 
 export { Home, Auth, Checkout };

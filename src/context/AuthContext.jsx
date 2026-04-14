@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || null);
+  const navigate = useNavigate();
 
   const signUp = (email, password) => {
     const getUser = JSON.parse(localStorage.getItem("users") || "[]");
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("currentUser");
     setUser(null);
+    navigate("/auth");
   };
 
   const login = (email, password) => {
@@ -44,3 +47,12 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default AuthContext;
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
+};

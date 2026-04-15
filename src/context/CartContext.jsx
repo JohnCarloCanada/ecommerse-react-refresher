@@ -21,9 +21,7 @@ export const CartProvider = ({ children }) => {
 
   // Filter out items that don't have a corresponding product
   const getCartItemsWithProduct = () => {
-    return cartItems.map((item) => ({ ...item, product: getProductById(item.id) }));
-
-    // .filter((item) => item.product);
+    return cartItems.map((item) => ({ ...item, product: getProductById(item.id) })).filter((item) => item.product);
   };
 
   const removeFromCart = (productId) => {
